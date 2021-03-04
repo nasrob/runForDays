@@ -1,0 +1,52 @@
+
+entity RfbLocation {
+    locationName String,
+    runDayOfWeek Integer,
+}
+
+entity RfbEvent {
+	eventDate LocalDate,
+    eventCode String,
+}
+
+entity RfbEventAttendance {
+	attendanceDate LocalDate,
+}
+
+entity RfbUser {
+	username String
+}
+
+// defining multiple one-to-many relationships
+relationship OneToMany {
+	RfbLocation{rfbEvent} to RfbEvent,
+    RfbEvent{rfbEventAttendance} to RfbEventAttendance,
+    RfbUser{rfbEventAttendance} to RfbEventAttendance
+}
+
+relationship OneToOne {
+    RfbUser{homeLocation} to RfbLocation
+}
+
+// Set Pagination options
+paginate RfbLocation, RfbEvent with pagination
+paginate RfbEventAttendance with infinite-scroll
+
+// Use DTOs
+dto * with mapstruct
+
+// In case if DTO is not required for specific (comma separated)entities.
+// dto * with mapstruct except School
+
+// Set service options to all except few
+service all with serviceImpl
+
+// In case if service layer is not required for certain
+// (comma separated) entities. Just uncomment below line
+// service all with serviceImpl except School
+
+// filter Country
+
+
+
+
