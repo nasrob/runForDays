@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RfbEventRepository extends JpaRepository<RfbEvent, Long> {
 
-	RfbEvent findRfbLocationAndEventDate(RfbLocation location, LocalDate date);
+	RfbEvent findByRfbLocationAndEventDate(RfbLocation location, LocalDate date);
 	
 	RfbEvent findByEventCodeEqualsAndEventDateEqualsAndRfbLocationEquals(String eventCode, LocalDate eventDate, RfbLocation location);
 	

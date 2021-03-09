@@ -29,7 +29,8 @@ public class RfbEventCodeService {
 	}
 	
 	
-	@Scheduled(cron = "0 0 * * * ?") // run once per hour, at top of hour
+	@Scheduled(cron = "0 * * * * ?") // run once per min
+	// @Scheduled(cron = "0 0 * * * ?") // run once per hour, at top of hour
 	public void generateRunEventCodes() {
 		
 		log.debug("Generating Events");
@@ -40,7 +41,7 @@ public class RfbEventCodeService {
 		
 		rfbLocations.forEach(location -> {
 			log.debug("Checking Events for Locations: " + location.getId());
-			RfbEvent existingEvent = rfbEventRepository.findRfbLocationAndEventDate(location, LocalDate.now());
+			RfbEvent existingEvent = rfbEventRepository.findByRfbLocationAndEventDate(location, LocalDate.now());
 			
 			if (existingEvent == null) {
 				log.debug("Event Not Found, Creating Event");
